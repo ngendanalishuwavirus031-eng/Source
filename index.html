@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lukona Secondary School Portal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a3a6b;
+      --accent: #e8a020;
+      --bg: #f4f6fb;
+      --card-bg: #ffffff;
+      --text: #1c2333;
+      --muted: #6b7a99;
+      --border: #d8dff0;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      box-shadow: 0 2px 12px rgba(26,58,107,0.18);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text strong {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.72rem;
+      opacity: 0.75;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-left: 1.6rem;
+      transition: color 0.15s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #2a5298 100%);
+      color: #fff;
+      padding: 4rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.55);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin-left: 8px;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .portal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+
+    .portal-card:hover {
+      box-shadow: 0 8px 28px rgba(26,58,107,0.12);
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .card-icon.blue   { background: #e8eef9; }
+    .card-icon.green  { background: #e6f7ef; }
+    .card-icon.amber  { background: #fef3e0; }
+    .card-icon.purple { background: #f0ecfd; }
+    .card-icon.red    { background: #fdeaea; }
+    .card-icon.teal   { background: #e0f5f5; }
+
+    .portal-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .portal-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .info-item .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .info-item .value {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    footer {
+      margin-top: auto;
+      background: var(--primary);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 1.4rem;
+      font-size: 0.82rem;
+    }
+
+    footer strong { color: #fff; }
+
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      nav { display: none; }
+      .hero { padding: 2.5rem 1rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-wrap">
+      <div class="logo-icon">LS</div>
+      <div class="logo-text">
+        <strong>Lukona Secondary</strong>
+        <span>School Portal</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Academics</a>
+      <a href="#">Students</a>
+      <a href="#">Staff</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to the<br /><span>Lukona Secondary</span> Portal</h1>
+    <p>Your central hub for academics, announcements, resources, and school administration.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Student Login</a>
+      <a href="#" class="btn btn-outline">Staff Login</a>
+    </div>
+  </section>
+
+  <main>
+    <h2 class="section-title">Portal Services</h2>
+    <div class="portal-grid">
+
+      <a href="#" class="portal-card">
+        <div class="card-icon blue">📚</div>
+        <h3>Academics</h3>
+        <p>View timetables, syllabi, and subject materials for all classes.</p>
+      </a>
+
+      <a href="#" class="portal-card">
+        <div class="card-icon green">📊</div>
+        <h3>Results & Reports</h3>
+        <p>Access term results, progress reports, and performance summaries.</p>
+      </a>
+
+      <a href="#" class="portal-card">
+        <div class="card-icon amber">📅</div>
+        <h3>School Calendar</h3>
+        <p>Stay up to date with term dates, events, and important deadlines.</p>
+      </a>
+
+      <a href="#" class="portal-card">
+        <div class="card-icon purple">🏫</div>
+        <h3>Administration</h3>
+        <p>Enrollment, registration, and administrative services for parents and students.</p>
+      </a>
+
+      <a href="#" class="portal-card">
+        <div class="card-icon red">📢</div>
+        <h3>Announcements</h3>
+        <p>Latest news, notices, and communications from the school.</p>
+      </a>
+
+      <a href="#" class="portal-card">
+        <div class="card-icon teal">📞</div>
+        <h3>Contact & Support</h3>
+        <p>Reach the school office, teachers, or support staff directly.</p>
+      </a>
+
+    </div>
+
+    <h2 class="section-title">School Information</h2>
+    <div class="info-strip">
+      <div class="info-item">
+        <span class="label">School</span>
+        <span class="value">Lukona Secondary School</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Current Term</span>
+        <span class="value">Term 2 — 2026</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Portal Status</span>
+        <span class="value">🟢 Online</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Support</span>
+        <span class="value">office@lukonasecondary</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 <strong>Lukona Secondary School</strong>. All rights reserved.
+  </footer>
+
+</body>
+</html>
