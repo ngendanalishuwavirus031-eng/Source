@@ -1,10 +1,11 @@
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAHyAPAk0ZKp8pqaDIZHE11nmyhs820lIs",
+  authDomain: "mongu-institute-92998.firebaseapp.com",
+  projectId: "mongu-institute-92998",
+  storageBucket: "mongu-institute-92998.firebasestorage.app",
+  messagingSenderId: "79129340148",
+  appId: "1:79129340148:web:4e8316b9de7880bc2616a1",
+  measurementId: "G-103WFW5FPY"
 };
 
 firebase.initializeApp(firebaseConfig);
