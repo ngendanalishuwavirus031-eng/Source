@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MIM Portal Login</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="firebase-config.js"></script>
+</head>
+<body>
+<div class="auth-box">
+  <h2>MIM Student & Staff Portal</h2>
+  <p style="margin:10px 0;color:#555;">Sign in to continue</p>
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button class="submit" onclick="login()">Login</button>
+  <p style="margin-top:10px;">No account? <a href="register.html">Register as Student</a></p>
+  <p id="msg" style="color:red;"></p>
+</div>
 
+<script>
+function login(){
+  const email = document.getElementById('email').value;
+  const pass = document.getElementById('password').value;
+
+  auth.signInWithEmailAndPassword(email, pass)
+  .then(cred => db.collection('users').doc(cred.user.uid).get())
+  .then(doc => {
+    if(!doc.exists){ document.getElementById('msg').innerText = "No profile found."; return; }
+    const role = doc.data().role;
+    if(role === 'admin') window.location = 'admin-dashboard.html';
+    else if(role === 'accountant') window.location = 'accountant-dashboard.html';
+    else if(role === 'lecturer') window.location = 'lecturer-dashboard.html';
+    else window.location = 'student-dashboard.html';
+  })
+  .catch(err => document.getElementById('msg').innerText = err.message);
+}
+</script>
+</body>
+  </html>
